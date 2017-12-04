@@ -26,6 +26,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-Dt-wFF">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EiA-2f-x7w">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <subviews>
@@ -137,10 +140,14 @@
                             <constraint firstItem="dq9-Ts-ora" firstAttribute="top" secondItem="EiA-2f-x7w" secondAttribute="bottom" constant="8" id="Fzg-la-KWh"/>
                             <constraint firstItem="EiA-2f-x7w" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Mz6-lS-SN3"/>
                             <constraint firstItem="ZLp-Zk-U7g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Sf5-08-dts"/>
+                            <constraint firstItem="LUq-Dt-wFF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UmR-h5-jFO"/>
                             <constraint firstItem="EiA-2f-x7w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ux8-xE-BD1"/>
+                            <constraint firstItem="LUq-Dt-wFF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="cyD-BK-LbS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZLp-Zk-U7g" secondAttribute="trailing" id="lEU-pc-bOx"/>
+                            <constraint firstItem="LUq-Dt-wFF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="mX5-mj-VoO"/>
                             <constraint firstItem="EiA-2f-x7w" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="utg-Rf-fLP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dq9-Ts-ora" secondAttribute="trailing" constant="10" id="wcF-IQ-JOz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LUq-Dt-wFF" secondAttribute="bottom" id="yy8-5W-c9e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -151,6 +158,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Background" width="640" height="960"/>
         <image name="devslopes-logo" width="150" height="94"/>
         <image name="f" width="352" height="328"/>
     </resources>

@@ -26,10 +26,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-Dt-wFF">
+                            <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-Dt-wFF">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EiA-2f-x7w">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EiA-2f-x7w" customClass="Fancy" customModule="MyOwnSocialNetwork" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="devslopes-logo" translatesAutoresizingMaskIntoConstraints="NO" id="nTg-yi-EkE">
@@ -78,7 +78,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="gga-t8-Lab">
                                         <rect key="frame" x="10" y="33" width="345" height="305"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfl-Ch-eRN">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfl-Ch-eRN" customClass="RoundButton" customModule="MyOwnSocialNetwork" customModuleProvider="target">
                                                 <rect key="frame" x="112.5" y="0.0" width="120" height="120"/>
                                                 <color key="backgroundColor" red="0.22897273302078247" green="0.34541785717010498" blue="0.58904314041137695" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -90,10 +90,10 @@
                                                 </state>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Jo4-mo-JNJ">
-                                                <rect key="frame" x="28.5" y="160" width="288" height="145"/>
+                                                <rect key="frame" x="56.5" y="160" width="232.5" height="145"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="RamManohar@gmail.com" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V3p-xM-RoP">
-                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="40"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V3p-xM-RoP" customClass="FancyText" customModule="MyOwnSocialNetwork" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="232.5" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="KKL-oA-B2L"/>
                                                         </constraints>
@@ -101,8 +101,8 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234567" borderStyle="roundedRect" placeholder="Enter Your Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3kk-YU-9cG">
-                                                        <rect key="frame" x="0.0" y="55" width="288" height="40"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3kk-YU-9cG" customClass="FancyText" customModule="MyOwnSocialNetwork" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="55" width="232.5" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="oXg-hv-KLL"/>
                                                         </constraints>
@@ -110,8 +110,8 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJN-pg-Nth">
-                                                        <rect key="frame" x="0.0" y="110" width="288" height="35"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJN-pg-Nth" customClass="FancyButton" customModule="MyOwnSocialNetwork" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="110" width="232.5" height="35"/>
                                                         <color key="backgroundColor" red="0.22897273302078247" green="0.34541785717010498" blue="0.58904314041137695" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                         <state key="normal" title="Sign In">
@@ -122,7 +122,6 @@
                                             </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="tfl-Ch-eRN" firstAttribute="centerX" secondItem="gga-t8-Lab" secondAttribute="centerX" id="lLA-tl-fB5"/>
                                             <constraint firstItem="Jo4-mo-JNJ" firstAttribute="centerX" secondItem="gga-t8-Lab" secondAttribute="centerX" id="qja-Q2-VVS"/>
                                         </constraints>
                                     </stackView>

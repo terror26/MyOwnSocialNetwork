@@ -21,7 +21,7 @@
         <!--Sign InVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SignInVC" customModule="MyOwnSocialNetwork" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main.storyboard" id="BYZ-38-t0r" customClass="SignInVC" customModule="MyOwnSocialNetwork" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,6 +88,9 @@
                                                 <state key="normal" title="Button" image="f">
                                                     <color key="titleColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="facebookBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kvn-ND-UBJ"/>
+                                                </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Jo4-mo-JNJ">
                                                 <rect key="frame" x="56.5" y="160" width="232.5" height="145"/>
@@ -121,9 +124,6 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Jo4-mo-JNJ" firstAttribute="centerX" secondItem="gga-t8-Lab" secondAttribute="centerX" id="qja-Q2-VVS"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>

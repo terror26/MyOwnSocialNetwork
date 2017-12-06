@@ -6,8 +6,10 @@ target 'MyOwnSocialNetwork' do
   use_frameworks!
 
   # Pods for MyOwnSocialNetwork
-	pod 'Firebase/Core'
-	pod 'Firebase/Database'
-	pod 'Firebase/Auth'
-	pod 'Firebase/Storage'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  pod 'FBSDKLoginKit'
+	pod 'FacebookCore'
 end

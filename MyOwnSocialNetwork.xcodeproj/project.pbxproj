@@ -18,6 +18,8 @@
 		290BD62D1FD4A73A0096CFF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 290BD62C1FD4A73A0096CFF8 /* Assets.xcassets */; };
 		290BD6301FD4A73A0096CFF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 290BD62E1FD4A73A0096CFF8 /* LaunchScreen.storyboard */; };
 		290BD6381FD4A8280096CFF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 290BD6371FD4A8280096CFF8 /* GoogleService-Info.plist */; };
+		292BC1571FD95CBA00A753FC /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292BC1561FD95CBA00A753FC /* FeedVC.swift */; };
+		292BC1591FD9947E00A753FC /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292BC1581FD9947E00A753FC /* CircleView.swift */; };
 		D6960E24DA19D813F74ECA81 /* Pods_MyOwnSocialNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10340FE0808B2447B29AD3F2 /* Pods_MyOwnSocialNetwork.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,8 @@
 		290BD62F1FD4A73A0096CFF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		290BD6311FD4A73A0096CFF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		290BD6371FD4A8280096CFF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		292BC1561FD95CBA00A753FC /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		292BC1581FD9947E00A753FC /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		2950E5091FD8509900F6DDCE /* MyOwnSocialNetwork.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyOwnSocialNetwork.entitlements; sourceTree = "<group>"; };
 		6D92DA538DD6983F8F6B7A80 /* Pods-MyOwnSocialNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOwnSocialNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyOwnSocialNetwork/Pods-MyOwnSocialNetwork.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +115,7 @@
 				2902693D1FD4F22400F7FADB /* RoundButton.swift */,
 				2902693F1FD4F4A200F7FADB /* FancyText.swift */,
 				290269411FD4F76500F7FADB /* FancyButton.swift */,
+				292BC1581FD9947E00A753FC /* CircleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				290BD6271FD4A73A0096CFF8 /* SignInVC.swift */,
+				292BC1561FD95CBA00A753FC /* FeedVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -259,6 +266,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -289,7 +297,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				292BC1591FD9947E00A753FC /* CircleView.swift in Sources */,
 				290269391FD4E92200F7FADB /* Fancy.swift in Sources */,
+				292BC1571FD95CBA00A753FC /* FeedVC.swift in Sources */,
 				2902693E1FD4F22400F7FADB /* RoundButton.swift in Sources */,
 				290BD6281FD4A73A0096CFF8 /* SignInVC.swift in Sources */,
 				290269421FD4F76500F7FADB /* FancyButton.swift in Sources */,

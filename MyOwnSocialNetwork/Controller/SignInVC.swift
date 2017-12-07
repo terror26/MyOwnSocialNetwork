@@ -11,7 +11,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
-
+import SwiftKeychainWrapper
 class SignInVC: UIViewController {
 
     @IBOutlet weak var emailField: FancyText!
@@ -19,9 +19,15 @@ class SignInVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        if let _ = KeychainWrapper.defaultKeychainWrapper.string(forKey: KEY_UID){
+            print("JESS: ID found in keychain")
+            performSegue(withIdentifier: "goToFeed", sender: nil)
+        }
+    }
+    
     @IBAction func facebookBtnPressed(_ sender: AnyObject) {
     
         let facebookLogin = FBSDKLoginManager()
@@ -46,6 +52,7 @@ class SignInVC: UIViewController {
                 print("++++++++++++++++Firebase Authentication Error++++++++++++")
             } else {
                 print("Authentication completed with Firebase")
+                self.completeSignIn(id: (user?.uid)!)
             }
             })
     }
@@ -55,18 +62,28 @@ class SignInVC: UIViewController {
             Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user,error) in
                 if error == nil {
                     print("++++++++++++++++++EMail:User authenticated with the Firebase *********+++++++")
+                    self.completeSignIn(id: (user?.uid)!)
+
                 } else {
                     Auth.auth().createUser(withEmail: email, password: pwd, completion: { (user, error) in
                         if error != nil {
                             print("+++++++++++Unable to authenticate with Firebase +++++++++")
                         } else {
                             print("ü+++++++++successfully authenticated ++++++++++++")
+                            self.completeSignIn(id: (user?.uid)!)
+
                         }
                         })
                 }
                 
             })
         }
+    }
+    
+    func completeSignIn(id: String) {
+        let KeychainWrapperResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
+        print("The REsult of the keychain wrapper is \(KeychainWrapperResult)")
+        performSegue(withIdentifier: "goToFeed", sender: nil)
     }
 }
 

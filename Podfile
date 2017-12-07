@@ -12,4 +12,5 @@ target 'MyOwnSocialNetwork' do
   pod 'Firebase/Storage'
   pod 'FBSDKLoginKit'
 	pod 'FacebookCore'
+	pod 'SwiftKeychainWrapper'
 end

@@ -9,3 +9,4 @@
 import UIKit
 
 let Shadow_Color = 122.0 / 255.0
+let KEY_UID = "uid"

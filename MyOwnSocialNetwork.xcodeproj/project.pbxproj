@@ -20,6 +20,7 @@
 		290BD6381FD4A8280096CFF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 290BD6371FD4A8280096CFF8 /* GoogleService-Info.plist */; };
 		292BC1571FD95CBA00A753FC /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292BC1561FD95CBA00A753FC /* FeedVC.swift */; };
 		292BC1591FD9947E00A753FC /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292BC1581FD9947E00A753FC /* CircleView.swift */; };
+		292BC15B1FD9ACB100A753FC /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292BC15A1FD9ACB100A753FC /* PostCell.swift */; };
 		D6960E24DA19D813F74ECA81 /* Pods_MyOwnSocialNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10340FE0808B2447B29AD3F2 /* Pods_MyOwnSocialNetwork.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		290BD6371FD4A8280096CFF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		292BC1561FD95CBA00A753FC /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		292BC1581FD9947E00A753FC /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		292BC15A1FD9ACB100A753FC /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		2950E5091FD8509900F6DDCE /* MyOwnSocialNetwork.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyOwnSocialNetwork.entitlements; sourceTree = "<group>"; };
 		6D92DA538DD6983F8F6B7A80 /* Pods-MyOwnSocialNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOwnSocialNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyOwnSocialNetwork/Pods-MyOwnSocialNetwork.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +118,7 @@
 				2902693F1FD4F4A200F7FADB /* FancyText.swift */,
 				290269411FD4F76500F7FADB /* FancyButton.swift */,
 				292BC1581FD9947E00A753FC /* CircleView.swift */,
+				292BC15A1FD9ACB100A753FC /* PostCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				290BD6261FD4A73A0096CFF8 /* AppDelegate.swift in Sources */,
 				290269401FD4F4A200F7FADB /* FancyText.swift in Sources */,
 				2902693C1FD4EBC800F7FADB /* Constant.swift in Sources */,
+				292BC15B1FD9ACB100A753FC /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

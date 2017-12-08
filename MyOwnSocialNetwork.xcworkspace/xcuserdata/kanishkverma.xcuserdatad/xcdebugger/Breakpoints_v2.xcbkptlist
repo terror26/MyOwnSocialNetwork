@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyOwnSocialNetwork/Controller/FeedVC.swift"
-            timestampString = "534422258.953069"
+            timestampString = "534424706.55244"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "SignoutTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>

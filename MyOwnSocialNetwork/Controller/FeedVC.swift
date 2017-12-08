@@ -42,10 +42,12 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let post = Posts[indexPath.row]
-        print("Yo\(post.caption)")
-        
-        return tableview.dequeueReusableCell(withIdentifier: "PostCell") as!PostCell
+        if let cell = tableview.dequeueReusableCell(withIdentifier: "PostCell") as?PostCell {
+            cell.configureTableCell(post: Posts[indexPath.row])
+            return cell
+        } else {
+            return PostCell()
+        }
     }
 
     override func didReceiveMemoryWarning() {

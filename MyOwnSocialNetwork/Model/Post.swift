@@ -30,9 +30,9 @@ class Post {
         return _postKey
     }
     
-    init(caption:String ,imageurl:String ,likes:Int ) {
+    init(caption:String ,Imageurl:String ,likes:Int ) {
         self._caption = caption
-        self._imageurl = imageurl
+        self._imageurl = Imageurl
         self._likes = likes
     }
     
@@ -43,13 +43,14 @@ class Post {
             self._caption = caption
         }
         
-        if let imageurl = postData["imageurl"] as?String{
+        if let imageurl = postData["imageUrl"] as?String{
             self._imageurl = imageurl
         }
         
         if let likes = postData["likes"] as?Int {
             self._likes = likes
         }
+        
     }
     
 }

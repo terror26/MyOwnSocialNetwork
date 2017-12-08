@@ -9,14 +9,23 @@
 import UIKit
 import Firebase
 import SwiftKeychainWrapper
-class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
+class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
+    @IBOutlet weak var addImage: CircleView!
     @IBOutlet weak var tableview :UITableView!
+
     var Posts = [Post]()
+    var imagePicker:UIImagePickerController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self
         tableview.dataSource = self
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
         
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot]{
@@ -50,10 +59,6 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBAction func SignoutTapped(_ sender: Any) {
         KeychainWrapper.standard.removeObject(forKey: KEY_UID)
@@ -61,8 +66,16 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
         performSegue(withIdentifier: "goToSignIn", sender: nil)
     }
     
-
-
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            addImage.image = pickedImage
+        }
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    @IBAction func addImageTapped(_ sender: Any) {
+        present(imagePicker, animated: true, completion: nil)
+    }
 }
 
 

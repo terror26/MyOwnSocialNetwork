@@ -52,7 +52,10 @@ class SignInVC: UIViewController {
                 print("++++++++++++++++Firebase Authentication Error++++++++++++")
             } else {
                 print("Authentication completed with Firebase")
-                self.completeSignIn(id: (user?.uid)!)
+                
+                let userData = [ "provider": credential.provider ]
+                self.completeSignIn(id: (user?.uid)!,userData: userData )
+
             }
             })
     }
@@ -62,7 +65,10 @@ class SignInVC: UIViewController {
             Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user,error) in
                 if error == nil {
                     print("++++++++++++++++++EMail:User authenticated with the Firebase *********+++++++")
-                    self.completeSignIn(id: (user?.uid)!)
+                    
+                    let userData = ["provider":user?.providerID]
+                    
+                    self.completeSignIn(id: (user?.uid)!,userData: userData as! Dictionary<String, String>)
 
                 } else {
                     Auth.auth().createUser(withEmail: email, password: pwd, completion: { (user, error) in
@@ -70,7 +76,8 @@ class SignInVC: UIViewController {
                             print("+++++++++++Unable to authenticate with Firebase +++++++++")
                         } else {
                             print("ü+++++++++successfully authenticated ++++++++++++")
-                            self.completeSignIn(id: (user?.uid)!)
+                            let userData = ["provider":user?.providerID]
+                            self.completeSignIn(id: (user?.uid)!,userData: userData as! Dictionary<String, String>)
 
                         }
                         })
@@ -80,7 +87,8 @@ class SignInVC: UIViewController {
         }
     }
     
-    func completeSignIn(id: String) {
+    func completeSignIn(id: String,userData: Dictionary<String,String> ) {
+        DataService.ds.createFirebaseDBUser(id: id, userData: userData)
         let KeychainWrapperResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
         print("The REsult of the keychain wrapper is \(KeychainWrapperResult)")
         performSegue(withIdentifier: "goToFeed", sender: nil)

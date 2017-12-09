@@ -13,11 +13,12 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
 
     @IBOutlet weak var addImage: CircleView!
     @IBOutlet weak var tableview :UITableView!
+    @IBOutlet weak var captionText: UITextField!
     
-
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     var Posts = [Post]()
     var imagePicker:UIImagePickerController!
+    var imageSelected  = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,10 +82,44 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             addImage.image = pickedImage
+            imageSelected = true
         }
         
         imagePicker.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func postBtnPressed(_ sender: Any) {
+        
+        guard let caption = captionText.text ,caption != "" else {
+            print("++++++++++++++CaptionMust be Entered++++++++++")
+            return
+        }
+        
+        guard let image = addImage.image, imageSelected == true else {
+            print("++++++++++++image must be selected++++++++")
+            return
+        }
+        if let imageData = UIImageJPEGRepresentation(image, 0.2) {
+            let imageUID = NSUUID().uuidString
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            
+            DataService.ds.REF_POST_IMAGES.child(imageUID).putData(imageData, metadata: metaData, completion: { (metaData, error) in
+                if error != nil {
+                    print("++++++++++++++++++++++++++ Unable to upload image to firebase Storage++++++++++++++")
+                } else {
+                    print("++++++++++++++++++++++++++Succesfully uploaded image ot the firebase++++++++++++++++++++")
+                    let downloadURL = metaData?.downloadURL()?.absoluteString
+                    
+                }
+                })
+            
+            
+        }
+        
+        
+    }
+    
     @IBAction func addImageTapped(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
     }

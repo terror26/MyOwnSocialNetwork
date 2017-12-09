@@ -32,7 +32,10 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
         
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot]{
+                self.Posts = [] // THIS IS THE NEW LINE
+
                 for snap in snapshots {
+
                     if let postDict = snap.value as? Dictionary<String , AnyObject> {
                         let key = snap.key
                         let post = Post(postKey: key, postData: postDict)
@@ -110,13 +113,26 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
                 } else {
                     print("++++++++++++++++++++++++++Succesfully uploaded image ot the firebase++++++++++++++++++++")
                     let downloadURL = metaData?.downloadURL()?.absoluteString
+                    self.postToFirebase(imageUrl: downloadURL!)
                     
                 }
-                })
-            
-            
+            })
         }
+    }
+    
+    func postToFirebase(imageUrl:String) {
+        let post:Dictionary<String,AnyObject> = [
+            "caption": captionText.text as AnyObject,
+            "imageUrl": imageUrl as AnyObject,
+            "likes": 0 as AnyObject
+        ]
         
+        let Firebasepost = DataService.ds.REF_POSTS.childByAutoId()
+        Firebasepost.setValue(post)
+        captionText.text = ""
+        addImage.image = UIImage(named: "add-image")
+        imageSelected = false
+        tableview.reloadData()
         
     }
     

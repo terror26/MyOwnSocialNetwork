@@ -9,7 +9,9 @@
 import UIKit
 import Firebase
 import SwiftKeychainWrapper
-class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+import GoogleSignIn
+
+class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GIDSignInUIDelegate {
 
     @IBOutlet weak var addImage: CircleView!
     @IBOutlet weak var tableview :UITableView!
@@ -19,16 +21,25 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
     var Posts = [Post]()
     var imagePicker:UIImagePickerController!
     var imageSelected  = false
+    var ProfileImgUrl:String!
+    var name:String!
+    var ref:DatabaseReference!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self
         tableview.dataSource = self
         
+        ProfileImgUrl = ""
+        name = ""
+        ref = Database.database().reference()
+        
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
+        GIDSignIn.sharedInstance().uiDelegate = self
         
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot]{
@@ -45,6 +56,24 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
             }
             self.tableview.reloadData()
         })
+        
+        //Current user stuff
+        let userID = Auth.auth().currentUser?.uid
+        
+        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if let snap = snapshot.value as?NSDictionary {
+                print("+++++++++++++Ramram+++++++++++++")
+                self.ProfileImgUrl = snap["ProfileImg"] as?String
+                self.name = snap["name"] as? String
+                
+                print("+++++++++++The name from users to the post is \(self.ProfileImgUrl)\(self.name)+++++++++++++++")
+            }
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,13 +90,19 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
             
             let post = Posts[indexPath.row]
             
-            if let image = FeedVC.imageCache.object(forKey: post.imageurl as NSString) {
-            
-                cell.configureTableCell(post: post,img: image)
+            if let image = FeedVC.imageCache.object(forKey: post.imageurl as NSString),let profileimg = FeedVC.imageCache.object(forKey: post.Profileimageurl as NSString)  {
+        
+                print("###############Before updating the profile  image url is \(self.ProfileImgUrl) ############")
+               cell.configureTableCell(post: post, img: image, Name: self.name, imageUrl: post.imageurl, profileimg: profileimg, profileImgUrl: post.Profileimageurl)
+                
+                
                 return cell
             } else {
                 
-                cell.configureTableCell(post: post,img: nil)
+                print("++++++++++++++++++ Before updating the profile  image url is \(post.Profileimageurl) +++++++++++++++")
+                print("++++++++++++++++++ Before updatingh the imageurl is \(post.imageurl)")
+                 cell.configureTableCell(post: post, img: nil, Name: self.name, imageUrl: post.imageurl, profileimg: nil, profileImgUrl: post.Profileimageurl)
+                
                 return cell
             }
         } else {
@@ -75,13 +110,7 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
         }
     }
 
-    
-    @IBAction func SignoutTapped(_ sender: Any) {
-        KeychainWrapper.standard.removeObject(forKey: KEY_UID)
-        try! Auth.auth().signOut()
-        performSegue(withIdentifier: "goToSignIn", sender: nil)
-    }
-    
+  
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             addImage.image = pickedImage
@@ -102,6 +131,12 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
             print("++++++++++++image must be selected++++++++")
             return
         }
+        
+
+        
+   
+        print("the profile name and the url of the image associated with that is \(self.name) \(self.ProfileImgUrl)")
+        
         if let imageData = UIImageJPEGRepresentation(image, 0.2) {
             let imageUID = NSUUID().uuidString
             let metaData = StorageMetadata()
@@ -113,19 +148,28 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
                 } else {
                     print("++++++++++++++++++++++++++Succesfully uploaded image ot the firebase++++++++++++++++++++")
                     let downloadURL = metaData?.downloadURL()?.absoluteString
-                    self.postToFirebase(imageUrl: downloadURL!)
+                    self.postToFirebase(imageUrl: downloadURL!,ProfileImg: self.ProfileImgUrl ,name: self.name)
                     
                 }
             })
         }
     }
     
-    func postToFirebase(imageUrl:String) {
+    func postToFirebase(imageUrl:String,ProfileImg:String , name:String) {
+        
+        print("the name and the profileimg is \(ProfileImg)\(name)")
+        
         let post:Dictionary<String,AnyObject> = [
+        
             "caption": captionText.text as AnyObject,
             "imageUrl": imageUrl as AnyObject,
-            "likes": 0 as AnyObject
+            "likes": 0 as AnyObject,
+            "PostedBy": name as AnyObject,
+            "ProfileImg" : ProfileImg as AnyObject
+        
         ]
+        
+        
         
         let Firebasepost = DataService.ds.REF_POSTS.childByAutoId()
         Firebasepost.setValue(post)
@@ -139,6 +183,32 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
     @IBAction func addImageTapped(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
     }
+    
+    
+    @IBAction func SignoutTapped(_ sender: Any) {
+        KeychainWrapper.standard.removeObject(forKey: KEY_UID)
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+        try! Auth.auth().signOut()
+        performSegue(withIdentifier: "goToSignIn", sender: nil)
+        
+        
+    }
+   
+    @IBAction func ProfileBtnPressed(_ sender: Any) {
+        performSegue(withIdentifier: "goToProfile", sender: nil)
+    
+    }
+    
+   
+    
+    
+    
 }
 
 

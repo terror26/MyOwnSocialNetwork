@@ -21,6 +21,7 @@ class DataService {
     private var _REF_POSTS = DB_BASE.child("posts")
     private var _REF_USERS = DB_BASE.child("users")
     
+    
     //Storage Referencing
     private var _REF_POST_IMAGE = STORAGE_BASE.child("postsPicks")
     
@@ -28,7 +29,7 @@ class DataService {
     var REF_POSTS: DatabaseReference {
         return _REF_POSTS
     }
-    
+
     var REF_USERS:DatabaseReference {
         return _REF_USERS
     }
@@ -42,6 +43,8 @@ class DataService {
         let user = REF_USER.child(uid!)
         return user
     }
+    
+    
     
     var REF_POST_IMAGES :StorageReference {
         return _REF_POST_IMAGE

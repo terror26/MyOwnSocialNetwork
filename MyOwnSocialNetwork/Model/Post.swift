@@ -15,6 +15,9 @@ class Post {
     private var _likes :Int!
     private var _postKey:String!
     private var _postRef:DatabaseReference!
+    private var _profileimageurl:String!
+    private var _name:String!
+    
 
     var caption: String {
         return _caption
@@ -31,16 +34,24 @@ class Post {
     var postKey: String {
         return _postKey
     }
+    var Name:String {
+        return _name
+    }
     
-    init(caption:String ,Imageurl:String ,likes:Int ) {
+    var Profileimageurl:String {
+        return _profileimageurl
+    }
+    
+    init(caption:String ,Imageurl:String ,likes:Int) {
         self._caption = caption
         self._imageurl = Imageurl
         self._likes = likes
+        self._profileimageurl = ""
     }
     
     init(postKey: String, postData:Dictionary<String, AnyObject> ) {
         self._postKey = postKey
-        
+        self._profileimageurl = ""
         if let caption = postData["caption"] as?String {
             self._caption = caption
         }
@@ -52,6 +63,19 @@ class Post {
         if let likes = postData["likes"] as?Int {
             self._likes = likes
         }
+        
+        if let name = postData["PostedBy"] as?String {
+            self._name = name
+        }
+        print("The data in the url of the post is\(imageurl)")
+        print("the data in the profile imageURl is \(Profileimageurl)")
+        
+        
+        if let profileImageUrl = postData["ProfileImg"] as?String {
+            self._profileimageurl = profileImageUrl
+        }
+        
+        
         _postRef = DataService.ds.REF_POSTS.child(postKey)
     }
     

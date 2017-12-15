@@ -21,6 +21,7 @@
 		292BC1571FD95CBA00A753FC /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292BC1561FD95CBA00A753FC /* FeedVC.swift */; };
 		292BC1591FD9947E00A753FC /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292BC1581FD9947E00A753FC /* CircleView.swift */; };
 		292BC15B1FD9ACB100A753FC /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292BC15A1FD9ACB100A753FC /* PostCell.swift */; };
+		293D523A1FE309FE004D8651 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293D52391FE309FE004D8651 /* ProfileVC.swift */; };
 		29898E211FDA9BC300C12590 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29898E201FDA9BC300C12590 /* Post.swift */; };
 		29A5CE091FDA4DB100678B73 /* DataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A5CE081FDA4DB100678B73 /* DataServices.swift */; };
 		D6960E24DA19D813F74ECA81 /* Pods_MyOwnSocialNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10340FE0808B2447B29AD3F2 /* Pods_MyOwnSocialNetwork.framework */; };
@@ -45,7 +46,9 @@
 		292BC1561FD95CBA00A753FC /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		292BC1581FD9947E00A753FC /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		292BC15A1FD9ACB100A753FC /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		293D52391FE309FE004D8651 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		2950E5091FD8509900F6DDCE /* MyOwnSocialNetwork.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyOwnSocialNetwork.entitlements; sourceTree = "<group>"; };
+		2976F7571FE1618000D764DB /* MyOwnSocialNetwork-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyOwnSocialNetwork-Bridging-Header.h"; sourceTree = "<group>"; };
 		29898E201FDA9BC300C12590 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		29A5CE081FDA4DB100678B73 /* DataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServices.swift; sourceTree = "<group>"; };
 		6D92DA538DD6983F8F6B7A80 /* Pods-MyOwnSocialNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyOwnSocialNetwork.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyOwnSocialNetwork/Pods-MyOwnSocialNetwork.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 				290BD62C1FD4A73A0096CFF8 /* Assets.xcassets */,
 				290BD62E1FD4A73A0096CFF8 /* LaunchScreen.storyboard */,
 				290BD6311FD4A73A0096CFF8 /* Info.plist */,
+				2976F7571FE1618000D764DB /* MyOwnSocialNetwork-Bridging-Header.h */,
 			);
 			path = MyOwnSocialNetwork;
 			sourceTree = "<group>";
@@ -134,6 +138,7 @@
 			children = (
 				290BD6271FD4A73A0096CFF8 /* SignInVC.swift */,
 				292BC1561FD95CBA00A753FC /* FeedVC.swift */,
+				293D52391FE309FE004D8651 /* ProfileVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -198,9 +203,13 @@
 				TargetAttributes = {
 					290BD6211FD4A73A0096CFF8 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -269,6 +278,7 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
@@ -281,6 +291,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
@@ -298,9 +309,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MyOwnSocialNetwork/Pods-MyOwnSocialNetwork-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -322,6 +336,7 @@
 				290BD6281FD4A73A0096CFF8 /* SignInVC.swift in Sources */,
 				29A5CE091FDA4DB100678B73 /* DataServices.swift in Sources */,
 				290269421FD4F76500F7FADB /* FancyButton.swift in Sources */,
+				293D523A1FE309FE004D8651 /* ProfileVC.swift in Sources */,
 				290BD6261FD4A73A0096CFF8 /* AppDelegate.swift in Sources */,
 				290269401FD4F4A200F7FADB /* FancyText.swift in Sources */,
 				2902693C1FD4EBC800F7FADB /* Constant.swift in Sources */,
@@ -463,14 +478,17 @@
 			baseConfigurationReference = 6D92DA538DD6983F8F6B7A80 /* Pods-MyOwnSocialNetwork.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MyOwnSocialNetwork/MyOwnSocialNetwork.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 696GDEHEZE;
 				INFOPLIST_FILE = MyOwnSocialNetwork/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = terror.MyOwnSocialNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyOwnSocialNetwork/MyOwnSocialNetwork-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -481,14 +499,16 @@
 			baseConfigurationReference = 0BE754092A8108C5D05B27FB /* Pods-MyOwnSocialNetwork.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MyOwnSocialNetwork/MyOwnSocialNetwork.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 696GDEHEZE;
 				INFOPLIST_FILE = MyOwnSocialNetwork/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = terror.MyOwnSocialNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyOwnSocialNetwork/MyOwnSocialNetwork-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -31,13 +31,18 @@ class PostCell: UITableViewCell {
         likeImage.isUserInteractionEnabled = true
     }
     
-    func configureTableCell(post:Post, img:UIImage? = nil) {
+    func configureTableCell(post:Post, img:UIImage? = nil, Name:String,imageUrl:String ,profileimg:UIImage? = nil,profileImgUrl:String) {
         
         self.post = post
         likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
-        
         self.caption.text = post.caption
         self.likeLbl.text = "\(post.likes)"
+        
+        print("the user namein the Post cell is \(Name)")
+        if Name != "" {
+            self.usernameLbl.text = Name
+        }
+        
         
         if img != nil {
             
@@ -64,6 +69,40 @@ class PostCell: UITableViewCell {
                 }
             })
         }
+        
+        
+        print("the Profile image url is ")
+        
+        
+        if profileimg != nil {
+            
+            self.profileImg.image = profileimg
+            
+        } else {
+            
+            let ref = Storage.storage().reference(forURL: post.Profileimageurl)
+            ref.getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                if error != nil {
+                    print("+++++++++++++Profile image stuffJESS: Unable to download image from Firebase storage+++++++++++")
+                } else {
+                    print("++++++++++ Profile image stuffJESS: Image downloaded from Firebase storage++++++++++++++")
+                    
+                    if let imgData = data {
+                        
+                        if let img = UIImage(data: imgData) {
+                            
+                            self.profileImg.image = img
+                            
+                            FeedVC.imageCache.setObject(img, forKey: profileImgUrl as NSString)
+                        }
+                    }
+                }
+            })
+        }
+        
+        
+        
+        
         likeRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull {
                 self.likeImage.image = UIImage(named: "empty-heart")
@@ -86,6 +125,8 @@ class PostCell: UITableViewCell {
             }
         })
     }
+    
+  
 }
 
 

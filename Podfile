@@ -13,4 +13,6 @@ target 'MyOwnSocialNetwork' do
   pod 'FBSDKLoginKit'
 	pod 'FacebookCore'
 	pod 'SwiftKeychainWrapper'
+	pod 'GoogleSignIn'
+
 end

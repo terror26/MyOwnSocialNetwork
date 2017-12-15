@@ -12,20 +12,36 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
 import SwiftKeychainWrapper
-class SignInVC: UIViewController {
+import GoogleSignIn
+
+var globalstuff = true
+
+class SignInVC: UIViewController,GIDSignInUIDelegate, GIDSignInDelegate{
 
     @IBOutlet weak var emailField: FancyText!
     @IBOutlet weak var pwdField: FancyText!
     
+
+    var once = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        if once {
         if let _ = KeychainWrapper.defaultKeychainWrapper.string(forKey: KEY_UID){
             print("JESS: ID found in keychain")
+            if once {
+                once = false
+            } else {
+                once = true
+            }
             performSegue(withIdentifier: "goToFeed", sender: nil)
         }
+        }
+            
     }
     
     @IBAction func facebookBtnPressed(_ sender: AnyObject) {
@@ -46,6 +62,8 @@ class SignInVC: UIViewController {
         }
     }
     
+    //GMAILLLLL:::
+    
     func FirebaseAuth(_ credential:AuthCredential) {
         Auth.auth().signIn(with: credential, completion: { (user, error) in
             if error != nil {
@@ -59,6 +77,7 @@ class SignInVC: UIViewController {
             }
             })
     }
+    
     @IBAction func signInTapped(_ sender: AnyObject) {
         
         if let email = emailField.text ,let pwd = pwdField.text {
@@ -93,8 +112,51 @@ class SignInVC: UIViewController {
         print("The REsult of the keychain wrapper is \(KeychainWrapperResult)")
         performSegue(withIdentifier: "goToFeed", sender: nil)
     }
-}
+    
+    
+    
+    
+    
+    //Handles the GOGLE sign in process
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        
+        if let error = error {
+            print("Some Error\(error)")
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
+        self.FirebaseAuth(credential)
+    }
+    
+    //Just as the stack view guy is telling
+    @IBAction func googlePlusButtonTouchUpInside(_ sender: Any) {
+        GIDSignIn.sharedInstance().delegate=self
+        GIDSignIn.sharedInstance().uiDelegate=self
+        GIDSignIn.sharedInstance().signIn()
 
+    }
+    
+    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+        
+    }
+    
+    func sign(_ signIn: GIDSignIn!,
+              present viewController: UIViewController!) {
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    }
+    
+    
 
 
 

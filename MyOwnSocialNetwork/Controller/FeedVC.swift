@@ -24,7 +24,7 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
     var ProfileImgUrl:String!
     var name:String!
     var ref:DatabaseReference!
-    
+    var canbeDeleted = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,6 +99,8 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
                 return cell
             } else {
                 
+                
+                
                 print("++++++++++++++++++ Before updating the profile  image url is \(post.Profileimageurl) +++++++++++++++")
                 print("++++++++++++++++++ Before updatingh the imageurl is \(post.imageurl)")
                  cell.configureTableCell(post: post, img: nil, Name: self.name, imageUrl: post.imageurl, profileimg: nil, profileImgUrl: post.Profileimageurl)
@@ -120,6 +122,7 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
+    
     @IBAction func postBtnPressed(_ sender: Any) {
         
         guard let caption = captionText.text ,caption != "" else {
@@ -131,10 +134,49 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
             print("++++++++++++image must be selected++++++++")
             return
         }
-        
+        let userID = Auth.auth().currentUser?.uid
 
         
-   
+        if self.ProfileImgUrl == nil || self.ProfileImgUrl == "" {
+            self.ProfileImgUrl = ""
+            self.ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let dict = snapshot.value as?NSDictionary {
+                    
+                    print("'''''''''''''''###########the dictionary in use is \(dict) ######'''''''''")
+                    let imgurl = dict["ProfileImg"] as?String
+                    print("################ PROFILE IMAGE URL IS \(imgurl)")
+                    if imgurl != nil {
+                        self.ProfileImgUrl = imgurl
+                    }
+                    
+                }
+            })  { (error) in
+                print(error.localizedDescription)
+            }
+            
+        }
+        
+        if self.name == nil || self.name == "" {
+            
+            self.name = " "
+            self.ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let dict = snapshot.value as?NSDictionary {
+                    let onename = dict["name"] as?String
+                    if onename != nil {
+                        self.name = onename
+                    }
+                    
+                }
+            })  { (error) in
+                print(error.localizedDescription)
+                
+            }
+        }
+        
+        print("the profile image then the url is \(self.name)\(self.ProfileImgUrl) \n")
+        
         print("the profile name and the url of the image associated with that is \(self.name) \(self.ProfileImgUrl)")
         
         if let imageData = UIImageJPEGRepresentation(image, 0.2) {
@@ -148,6 +190,7 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
                 } else {
                     print("++++++++++++++++++++++++++Succesfully uploaded image ot the firebase++++++++++++++++++++")
                     let downloadURL = metaData?.downloadURL()?.absoluteString
+                    
                     self.postToFirebase(imageUrl: downloadURL!,ProfileImg: self.ProfileImgUrl ,name: self.name)
                     
                 }
@@ -205,7 +248,47 @@ class FeedVC: UIViewController, UITableViewDelegate,UITableViewDataSource,UIImag
     
     }
     
-   
+   //TO add the delete functionality of a post
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+
+            
+            let onedeleted = Posts.remove(at: indexPath.row)
+            
+            let userID = Auth.auth().currentUser?.uid
+            ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+               
+                if let dict = snapshot.value as?NSDictionary {
+                    let onename = dict["name"] as?String
+                    print(dict)
+                    
+              print("The profile name to check is then the name of the deleted post is \(onename)\(onedeleted.Name)")
+                    if onename == onedeleted.Name {
+                        self.canbeDeleted = true
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+            
+            if canbeDeleted {
+                canbeDeleted = false
+                //self.ref.child("posts").child([indexPath.row]).removeValue() // remove the child referred using id from database
+                print("//////////////////  the post key of the post to be deleted is    \(onedeleted.postKey) ////////////////////")
+                
+            } else {
+                
+                Posts.insert(onedeleted, at: indexPath.row)
+            }
+        }
+    
+    }
     
     
     

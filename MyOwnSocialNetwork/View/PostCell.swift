@@ -71,14 +71,14 @@ class PostCell: UITableViewCell {
         }
         
         
-        print("the Profile image url is ")
+        
         
         
         if profileimg != nil {
             
             self.profileImg.image = profileimg
             
-        } else {
+        } else if profileImgUrl != "" {
             
             let ref = Storage.storage().reference(forURL: post.Profileimageurl)
             ref.getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in

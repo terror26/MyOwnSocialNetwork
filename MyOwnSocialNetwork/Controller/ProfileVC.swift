@@ -145,9 +145,12 @@ class ProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationCo
                 }
             }
         })
-        
+        if name != "" {
     self.userNameLbl.text = name
+        }
     }
+    
+    
     
 }
 

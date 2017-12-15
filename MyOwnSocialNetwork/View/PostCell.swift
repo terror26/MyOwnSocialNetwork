@@ -37,7 +37,7 @@ class PostCell: UITableViewCell {
         likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
         self.caption.text = post.caption
         self.likeLbl.text = "\(post.likes)"
-        
+        self.usernameLbl.text = post.Name
         print("the user namein the Post cell is \(Name)")
         if Name != "" {
             self.usernameLbl.text = Name
